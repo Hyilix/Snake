@@ -1,9 +1,9 @@
 CXX ?= g++
-# CXXFLAGS = -I/usr/x86_64-w64-mingw32/include/SDL2
+CXXFLAGS = -Idependencies/glad/include
 LDFLAGS  =
-LDLIBS   = -lGL
+LDLIBS   = -lGL -lglfw -ldl
 
-OBJECTS = main.o
+OBJECTS = main.o glad.o
 TARGET  = Snake
 TARGET_WIN = Snake.exe
 
@@ -23,6 +23,9 @@ $(TARGET): $(OBJECTS)
 
 %.o: src/%.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+glad.o: dependencies/glad/src/glad.c
+	$(CC) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(TARGET) *.o
