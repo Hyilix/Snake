@@ -3,6 +3,18 @@
 
 #include <iostream>
 
+// Bascially the resize function
+void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
+    glViewport(0, 0, width, height);
+}
+
+// Input processing function
+void process_input(GLFWwindow *window) {
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+        glfwSetWindowShouldClose(window, true);
+    }
+}
+
 int main(void) {
     // Initialisation
     glfwInit();
@@ -32,6 +44,24 @@ int main(void) {
 
     glViewport(0, 0, 800, 600);
 
+    // Set the framebuffer callback function
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+
+    // Set screen color
+    glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
+
+    // Loop
+    while (!glfwWindowShouldClose(window)) {
+        process_input(window);
+
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+    }
+
+    // Delete all glfw resources
+    glfwTerminate();
     return 0;
 }
 

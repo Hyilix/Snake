@@ -1,0 +1,7 @@
+# Build artifacts
+*.o
+Snake
+Snake.exe
+
+# Nvim compiler flags
+compile_flags.txt
